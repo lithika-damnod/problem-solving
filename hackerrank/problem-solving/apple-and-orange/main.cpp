@@ -18,8 +18,27 @@ vector<string> split(const string &);
  *  6. INTEGER_ARRAY oranges
  */
 
-void countApplesAndOranges(int s, int t, int a, int b, vector<int> apples, vector<int> oranges) {
+void addDistanceToTrees(int d, vector<int> &fruitPos){
+    for(int i=0; i<fruitPos.size(); i++){
+        fruitPos[i] += d;
+    }
+}
 
+int countNumFruites(int s, int t, vector<int> &fruitPos){
+    int num = 0;
+    for(int i=0; i<fruitPos.size(); i++){
+        if(fruitPos[i] >= s && fruitPos[i] <= t){
+            num++;
+        }
+    }
+    return num;
+}
+
+void countApplesAndOranges(int s, int t, int a, int b, vector<int> apples, vector<int> oranges) {
+    addDistanceToTrees(a, apples);
+    addDistanceToTrees(b, oranges);
+    cout << countNumFruites(s, t, apples) << endl;
+    cout << countNumFruites(s, t, oranges) << endl;
 }
 
 int main()
