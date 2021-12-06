@@ -12,17 +12,37 @@ string rtrim(const string &);
  * The function accepts INTEGER_ARRAY grades as parameter.
  */
 
-vector<int> gradingStudents(vector<int> grades) {
+void roundGrades(vector<int> &grades){
     for(int i=0; i<grades.size(); i++){
-        int remaining = grades[i]%5;
-        if( remaining < 3){
-            grades[i] += remaining;
+        int grade = grades[i];
+        // check whether the grades are between 0 and 100
+        if(grade >= 0 && grade <= 100){
+            // find the next multiple of five
+            int remainder = grade%5;
+            if(remainder == 0){
+                grade+=5;
+            }
+            else{
+                int adder = 5 - remainder;
+                grade+=adder;
+            }
+            // if the difference between the next multiple and previouse value is less than 3 round it
+            if((grade - grades[i]) < 3 && grade >= 38){
+                grades[i] = grade;
+            }
+
+            else if(grade < 38){
+                break;
+            }
         }
-        else
-            break;
-
     }
+}
 
+vector<int> gradingStudents(vector<int> grades) {
+    roundGrades(grades);
+    for(int i=0; i<grades.size(); i++){
+        cout << grades[i] << endl;
+    }
     return grades;
 }
 
