@@ -12,7 +12,40 @@ using namespace std;
  *  4. INTEGER v2
  */
 
+// checks whether a float is a integer or a fractional number
+bool isFloat(float a){
+    if((int) a == a)
+        return false;
+    return true;
+}
+
 string kangaroo(int x1, int v1, int x2, int v2) {
+    /*
+        equation:
+            position = x + n(v)
+
+        equation to find number on jumps needed:
+                kangroos can't reach each other.
+            if this is negative or a float:
+            else ( if it does )
+                they meet.
+            -------------------------------
+            x1 + n(v1) = x2 + n(v2)
+            x1 + nv = x2 + nv
+            x1 - x2 = nv - nv
+            ( x1 - x2 ) / v = nv / v
+
+            final equation:
+                n = ( x1 - x2 ) / v
+
+    */
+    int v = v1 - v2;
+    float ans = ( x2 - x1 ) / v;
+    bool floatStatus = isFloat(ans);
+    if(floatStatus)
+        return "NO";
+    else if(ans < 0)
+        return "NO";
     return "YES";
 }
 
