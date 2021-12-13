@@ -36,11 +36,12 @@ string kangaroo(int x1, int v1, int x2, int v2) {
             ( x1 - x2 ) / v = nv / v
 
             final equation:
-                n = ( x1 - x2 ) / v
+                n = ( x2 - x1 ) / v
 
     */
     int v = v1 - v2;
-    float ans = ( x2 - x1 ) / v;
+    float ans = (float)( x2 - x1 ) / v;
+    cout << "answer: " << ans << endl;
     bool floatStatus = isFloat(ans);
     if(floatStatus)
         return "NO";
