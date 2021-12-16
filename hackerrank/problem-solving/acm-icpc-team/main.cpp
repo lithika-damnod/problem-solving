@@ -6,25 +6,6 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
-
-int findMax(vector<int> arr){
-    int maxVal = arr[0];
-    for(int i=0; i<arr.size(); i++){
-        if(arr[i] > maxVal)
-            maxVal = arr[i];
-    }
-    return maxVal;
-}
-int countMax(vector<int> arr){
-    int maxVal = findMax(arr);
-    int nMax = 0;
-    for(int i=0; i<arr.size(); i++){
-        if(arr[i] == maxVal)
-            nMax++;
-    }
-    return nMax;
-}
-
 /*
  * Complete the 'acmTeam' function below.
  *
@@ -33,26 +14,21 @@ int countMax(vector<int> arr){
  */
 
 vector<int> acmTeam(vector<string> topic) {
-    vector<int> results;
+    int maxVal = 0;
+    int sameMax = 0;
     for(int i=0; i<topic.size(); i++){
         for(int j=i+1; j<topic.size(); j++){
             int nSkills = 0;
             for(int k=0; k<topic[i].size(); k++){
-                if(topic[i][k] == '0'){
-                    if(topic[j][k] == '1')
-                        nSkills++;
-                }
-                else{
-                    nSkills++;
-                }
-
+                nSkills += (topic[i][k] == '1'||topic[j][k] == '1');
             }
-            results.push_back(nSkills);
+            if(nSkills>maxVal)
+            {
+                maxVal = nSkills;
+                sameMax = 1;
+            }else if(nSkills == maxVal) sameMax++;
         }
     }
-    // find max and count the number of max vals
-    int maxVal = findMax(results);
-    int sameMax = countMax(results);
     cout << maxVal << endl;
     cout << sameMax << endl;
     vector<int> returnArr = {maxVal, sameMax};
