@@ -14,6 +14,25 @@ vector<string> split(const string &);
  */
 
 vector<int> acmTeam(vector<string> topic) {
+    int maxVal = 0;
+    int sameMax = 0;
+    for(int i=0; i<topic.size(); i++){
+        for(int j=i+1; j<topic.size(); j++){
+            int nSkills = 0;
+            for(int k=0; k<topic[i].size(); k++){
+                nSkills += (topic[i][k] == '1'||topic[j][k] == '1');
+            }
+            if(nSkills>maxVal)
+            {
+                maxVal = nSkills;
+                sameMax = 1;
+            }else if(nSkills == maxVal) sameMax++;
+        }
+    }
+    cout << maxVal << endl;
+    cout << sameMax << endl;
+    vector<int> returnArr = {maxVal, sameMax};
+    return returnArr;
 
 }
 
