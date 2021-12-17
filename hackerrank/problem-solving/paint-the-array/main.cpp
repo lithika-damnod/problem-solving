@@ -1,50 +1,62 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-int findMax(vector<int> arr){
-    int maxVal = arr[0];
-    for(int i=1; i<arr.size(); i++){
-        if(arr[i] > maxVal)
-            maxVal = arr[i];
+bool checkValid(vector<int64_t> arr, bool isEven, int64_t factor)
+{
+    for(int i=(isEven)?1:0;i<arr.size(); i+=2)
+    {
+        if(arr[i]%factor==0)
+        {
+            return false;
+        }
     }
-
-    return maxVal;
+    return true;
 }
 
-int findBeautiful(vector<int> arr){
-    int validD = 0;
-    int d = 2;
-    int maxVal = findMax(arr);
-    while(d <= maxVal){
-        int i=1;
-        bool valid = true;
-        bool isRed = (arr[0]%d==0);
-        while(i<arr.size() && valid){
-            valid = (isRed)?(arr[i]%d!=0):(arr[i]%d==0);
-            isRed = !isRed;
-            //cout << "i: " << i << " d: " << d << " valid: " << valid << endl;
-            i++;
-        }
-        if(valid)
-        {
-            validD = d;
-        }
-        d++;
+int64_t gcd(int64_t a, int64_t b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+
+}
+
+int64_t findBeautiful(vector<int64_t> arr){
+    //Find even branch gcd
+    int64_t evenFactor = 0;
+    for(int i=0; i<arr.size() && evenFactor != 1; i+=2)
+    {
+        evenFactor = gcd(evenFactor, arr[i]);
     }
-    return validD;
+    //Find odd branch gcd
+    int64_t oddFactor = 0;
+    for(int i=1; i<arr.size() && oddFactor != 1; i+=2)
+    {
+        oddFactor = gcd(oddFactor, arr[i]);
+    }
+    //For each factor check the opposite branch for validity
+    if(checkValid(arr, true, evenFactor))
+    {
+        return evenFactor;
+    }else if(checkValid(arr, false, oddFactor))
+    {
+        return oddFactor;
+    }
+    return 0;
 }
 
 int main()
 {
     // get input
-    vector<vector<int>> arrays;
+    vector<vector<int64_t>> arrays;
     int nT; cin >> nT;
     for(int i=0; i<nT; i++){
         int n; cin >> n;
-        vector<int> pushArray;
+        vector<int64_t> pushArray;
         for(int j=0; j<n; j++){
-            int val;
+            int64_t val;
             cin >> val;
             pushArray.push_back(val);
         }
