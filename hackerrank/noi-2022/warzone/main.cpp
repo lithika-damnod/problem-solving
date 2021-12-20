@@ -5,45 +5,52 @@
 #include <algorithm>
 using namespace std;
 
-// checks for a value in a vector
-bool check(vector<int> arr, int value){
-    if(std::find(arr.begin(), arr.end(), value) != arr.end()) {
-        return true;
-    } else {
-        return false;
-    }
+uint64_t maxCityThreat(vector<uint64_t> attackers, vector<uint64_t> cities){
+    uint64_t oddPlanes = 0;
+    uint64_t oddCities = 0;
+    uint64_t cityThreat = 0;
+    // finding the number of odd planes
+    for(uint64_t plane:attackers)
+        oddPlanes+=(plane%2==1)?1:0;
+
+    // finding the number of odd cities
+    for(uint64_t city:cities)
+        oddCities+=(city%2==1)?1:0;
+
+    // finding the even cities and the attackers
+    uint64_t evenPlanes = attackers.size() - oddPlanes;
+    uint64_t evenCities = cities.size() - oddCities;
+
+    // calculate max cities that are in threat
+    cityThreat += (oddCities > evenPlanes)?evenPlanes:oddCities;
+    cityThreat += (evenCities > oddPlanes)?oddPlanes:evenCities;
+
+    return cityThreat;
 }
 
 int main() {
 
-    vector<int> fighters;
-    vector<int> cities;
+    vector<uint64_t> fighters;
+    vector<uint64_t> cities;
     int x, y; cin >> x >> y;
+    fighters.reserve(x); // resize the vector to the size of x
+    cities.reserve(y); // resize the vector to the size of y
+
     // get input for fighter planes
-    for(int i=0; i<x; i++){
-        int tmp;
+    for(uint64_t i=0; i<x; i++){
+        uint64_t tmp;
         cin >> tmp;
         fighters.push_back(tmp);
     }
+
     // get input for cities
-    for(int i=0; i<y; i++){
-        int tmp;
+    for(uint64_t i=0; i<y; i++){
+        uint64_t tmp;
         cin >> tmp;
         cities.push_back(tmp);
     }
-    // calculate max deployment cities
-    vector<int> city; // for storing city indexes
-    vector<int> planes; // for storing plane indexes
-    int nCities = 0;
-    for(int i=0; i<fighters.size(); i++){
-        for(int j=0; j<cities.size(); j++){
-            if((fighters[i] + cities[j]) % 2 == 1 && !check(city, j) && !check(planes, i)){
-                city.push_back(j);
-                planes.push_back(i);
-                nCities++;
-            }
-        }
-    }
-    cout << nCities << endl; // print out maximum number of cities
+
+    cout << maxCityThreat(fighters, cities) << endl; // print out maximum number of cities
+
     return 0;
 }
