@@ -6,54 +6,22 @@
 #include <string>
 using namespace std;
 
-void arrangement(int n){
-    vector<char> trees = {'s', 't', 'r'};
-    int nGroups = n / 3;
-    int nRemained = n%3;
-    vector<string> order;
-    // making the string
-    for(int i=0; i<nGroups; i++){
-        string pushString = "";
-        int j=0;
-        while(pushString.size() != 3){
-            if(j==0){
-                pushString+=trees[0];
-                j++;
-            }
-            else{
-                if(j == 1){
-                    pushString+=trees[0];
-                    j++;
-                }
-                else if(j == 2){
-                    if(pushString[0] != trees[j-1])
-                        pushString+=trees[j-1];
-                    else if(pushString[0] == trees[j-1])
-                        pushString+=trees[j+1];
-                }
-            }
+void arrangeTrees(int n){
+    string treeOrder = "";
+    for(int i=0; i<n; i++){
+        if(i == 0)
+            treeOrder+="s";
+        else if(i == 1)
+            treeOrder+="t";
+        else{
+            treeOrder+=(treeOrder[i-2] == 's')?'t':'s';
         }
-        order.push_back(pushString);
     }
-    // full fill the space
-    string remainderString = "";
-    for(int i=0; i<nRemained; i++){
-        if(order[0][0] == 's')
-            remainderString+='t';
-        else
-            remainderString+='s';
-    }
-    order.push_back(remainderString);
-
-    // print the string vector
-    for(int i=0; i<order.size(); i++){
-        cout << order[i];
-    }
-    cout << endl;
+    cout << treeOrder << endl;
 }
 
 int main() {
     int n; cin >> n;
-    arrangement(n);
+    arrangeTrees(n);
     return 0;
 }
