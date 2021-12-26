@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1640441868 source:c:\users\dulina\downloads\subject-sum\main.cpp
+	<cmath>
+	<cstdio>
+	<vector>
+	<iostream>
+	<algorithm>
+
