@@ -1,0 +1,29 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+bool contains(vector<uint64_t> vec, uint64_t elem)
+{
+    bool result = false;
+    if( find(vec.begin(), vec.end(), elem) != vec.end() )
+    {
+        result = true;
+    }
+    return result;
+}
+
+struct command{
+    string cmd;
+    uint64_t pid;
+};
+
+int main() {
+
+    int nT; cin >> nT;
+    for(int i=0; i<nT; i+)
+    return 0;
+}
