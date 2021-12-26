@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1640488594 source:c:\users\dulina\downloads\replace-the-numbers\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+
