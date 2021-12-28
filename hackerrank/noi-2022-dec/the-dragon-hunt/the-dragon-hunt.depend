@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1640627896 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2022-dec\the-dragon-hunt\main.cpp
+	<cmath>
+	<cstdio>
+	<vector>
+	<iostream>
+	<algorithm>
+
