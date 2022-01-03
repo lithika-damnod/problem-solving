@@ -13,55 +13,62 @@ struct dragon{
     int g = 0; // n coins for capturing
 };
 
-int calculateReward(vector<dragon> dragons, int n){
-    vector<dragon> sortedDragons = dragons;
-    // sorting dragons by their coins after copying
-    sort(sortedDragons.begin(), sortedDragons.end(), [](dragon a, dragon b){
-        return a.g > b.g;
-    });
+struct Reward{
+    int gold = 0;
+    int pos = 0;
+    int nPoss = 0;
+};
 
-    int nUsed = 0; // soldiers used
-    int totalCoins = 0;
-    for(int i=0; i<sortedDragons.size(); i++){
-        // cout << "sortedDragons size: " << sortedDragons.size() << endl;
-        if(i == sortedDragons.size()-1){
-            int nPoss = 0;
-            int soldiers = sortedDragons[i].s;
-            int coins = sortedDragons[i].g;
-            // cout << "nUsed: " << nUsed << endl;
-            // cout << "n: " << n << endl;
-            // cout << "soldiers: " << soldiers << endl;
-            // cout << "gold: " << coins << endl;
-            int coinsToBeAdded = ((int)(n - nUsed)/soldiers)*coins;
-            // cout << "value to be added: " << coinsToBeAdded << endl;
-            totalCoins += coinsToBeAdded;
-            return totalCoins;
-        }
-        else{
-            if(nUsed == n)
-                return totalCoins;
-            cout << "i: " << i << endl;
-            int available_arrows = sortedDragons[i].x;
-            int arrows_per_one = sortedDragons[i].y;
-            int soldiers = sortedDragons[i].s;
-            int coins = sortedDragons[i].g;
-            if(arrows_per_one == 0 || available_arrows/arrows_per_one >= 0 ){
-                int nPoss = available_arrows / arrows_per_one;
-                while(nUsed+(nPoss*soldiers) > n)
-                    nPoss--;
-                // cout << coins * nPoss << " coins added.. " << endl;
-                if(nPoss > 0){
-                    totalCoins += coins * nPoss;
-                    cout << coins << " * " << nPoss << endl;
-                    nUsed += (nPoss*soldiers);
-                    // cout << "nUsed: " << nUsed << endl;
-                    sortedDragons[i].x =- arrows_per_one * nPoss;
-                    // cout << "total coins: " << totalCoins << endl;
-                }
-            }
+int maxElement(vector<Reward> arr){
+    int maxim = 0;
+    int maxIndex = 0;
+    for(int i=0; i<arr.size(); i++){
+        if(maxim < arr[i].gold){
+            maxim = arr[i].gold;
+            maxIndex = i;
         }
     }
-    return totalCoins;
+
+    return maxIndex;
+}
+
+int calculateReward(vector<dragon> dragons, int n){
+    int nT = dragons.size();
+    int nUsed = 0;
+    int nRemained = n;
+    vector<int> totalCoins;
+    for(int i=0; i<nT; i++){
+        vector<Reward> rewards;
+        for(int j=0; j<dragons.size(); j++){
+            int arrows = (dragons[j].y <= 0 )?0:dragons[j].x / dragons[j].y; // arrows left / arrows per
+            int soldiers = (dragons[j].s <= 0)?0:nRemained / dragons[j].s;
+            int minElem = min(arrows, soldiers);
+            int totalGold = minElem * dragons[j].g;
+            Reward push_reward;
+            push_reward.gold = totalGold;
+            push_reward.pos = j;
+            push_reward.nPoss = minElem;
+            rewards.push_back(push_reward);
+        }
+        // find the index with max
+        int maxElem = maxElement(rewards); // get the position of the max Element;
+        // reduce the number of soldiers left and used
+        int n_s_to_be_added = dragons[rewards[maxElem].pos].s * rewards[maxElem].nPoss;
+        nUsed = nUsed + n_s_to_be_added;
+        nRemained = nRemained - n_s_to_be_added;
+        // add the number of coins to the answer
+        totalCoins.push_back(rewards[maxElem].gold);
+        // delete the row of data with max gold
+        dragons.erase(dragons.begin()+rewards[maxElem].pos);
+    }
+
+    //  find the total and return
+    int total = 0;
+    for(int i=0; i<totalCoins.size(); i++){
+        total+=totalCoins[i];
+    }
+
+    return total;
 }
 
 int main() {
