@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1639978706 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2022\duchess-garden\main.cpp
+	<cmath>
+	<cstdio>
+	<vector>
+	<iostream>
+	<algorithm>
+	<string>
+
