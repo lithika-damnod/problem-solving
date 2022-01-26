@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1642907867 source:c:\users\dulina\documents\problem-solving\codeforces\problemset\download-more-ram\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+	<map>
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1643190397 source:c:\users\dulina\documents\problem-solving\codeforces\problemset\gcd-arrays\main.cpp
+	<iostream>
+	<vector>
+	<string>
+
