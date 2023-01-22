@@ -1,9 +1,0 @@
-# depslib dependency file v1.0
-1640185948 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2020\multithreading\main.cpp
-	<cmath>
-	<cstdio>
-	<vector>
-	<iostream>
-	<algorithm>
-	<string>
-
