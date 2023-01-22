@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1640021789 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2022\the-bounteous-knight\main.cpp
-	<cmath>
-	<cstdio>
-	<vector>
-	<iostream>
-	<algorithm>
-

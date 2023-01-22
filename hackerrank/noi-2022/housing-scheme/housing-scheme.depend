@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1640103777 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2022\housing-scheme\main.cpp
-	<cmath>
-	<cstdio>
-	<vector>
-	<iostream>
-	<algorithm>
-

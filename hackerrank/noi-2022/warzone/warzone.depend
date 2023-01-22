@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1640010032 source:c:\users\dulina\documents\problem-solving\hackerrank\noi-2022\warzone\main.cpp
-	<cmath>
-	<cstdio>
-	<vector>
-	<iostream>
-	<algorithm>
-

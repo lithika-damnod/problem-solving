@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1641915383 source:c:\users\dulina\documents\problem-solving\hackerrank\problem-solving\the-time-in-words\main.cpp
-	<iostream>
-	<vector>
-	<string>
-	<cmath>
-	<algorithm>
-
